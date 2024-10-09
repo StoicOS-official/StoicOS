@@ -1,22 +1,21 @@
-#include <string>
-#include <sstream>
+#ifndef COMMANDHANDLER_H
+#define COMMANDHANDLER_H
 
 class CommandHandler {
-private:
-  bool type_sudo = false;
-  string command_locname = cdir;
-  string args = "";
 public:
-    CommandHandler (stringstream ss) {
-      string s; ss >> s;
-      type_sudo = (s == "sudo");
+    bool type_sudo = false;
+    string command;
+    vector<pair<string, string>> args;
 
-      if (type_sudo) {
-        cerr << "Command type sudo!\n";
-      }
-
-      while (ss >> s) {
-        args += s;
-      }
+    string GetCommandType() const {
+        return command;
     }
+
+    vector<pair<string, string>> GetArgs() const {
+        return args;
+    }
+
+    friend istream& operator>> (istream& in, CommandHandler& handler);
 };
+
+#endif
